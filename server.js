@@ -16,6 +16,7 @@ try {
   // Production hosts provide environment variables through their dashboard.
 }
 const port = Number(process.env.PORT || 3000);
+const frontendOrigin = process.env.FRONTEND_ORIGIN || '*';
 const inquiryTo = process.env.INQUIRY_TO_EMAIL || '';
 const resendKey = process.env.RESEND_API_KEY || '';
 const resendFrom = process.env.RESEND_FROM_EMAIL || 'Website Inquiry <onboarding@resend.dev>';
@@ -33,6 +34,8 @@ const mimeTypes = {
 };
 
 function sendJson(response, status, data) {
+  response.setHeader('Access-Control-Allow-Origin', frontendOrigin);
+  response.setHeader('Vary', 'Origin');
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   response.end(JSON.stringify(data));
 }
@@ -107,6 +110,16 @@ async function serveStatic(request, response) {
 const server = createServer(async (request, response) => {
   const url = new URL(request.url, 'http://localhost');
 
+  response.setHeader('Access-Control-Allow-Origin', frontendOrigin);
+  response.setHeader('Vary', 'Origin');
+  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (request.method === 'OPTIONS') {
+    response.writeHead(204);
+    response.end();
+    return;
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/inquiries') {
     try {
       const fields = JSON.parse(await readBody(request));
@@ -124,4 +137,4 @@ const server = createServer(async (request, response) => {
   return serveStatic(request, response);
 });
 
-server.listen(port, () => console.log(`Starlite Childcare site running on port ${port}`));
+server.listen(port, '0.0.0.0', () => console.log(`Starlite Childcare site running on port ${port}`));

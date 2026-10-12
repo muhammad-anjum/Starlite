@@ -2,8 +2,8 @@ import { animate } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
 
 const root = document.documentElement;
 const splash = document.querySelector('.transition-splash');
-const page = document.documentElement.dataset.page;
 const colors = { coral: '#f36d75', blue: '#a9dce5', yellow: '#ffd353', green: '#a9d3b3' };
+const apiBase = window.STARLITE_CONFIG?.apiBase || '';
 
 document.querySelectorAll('.year').forEach((element) => { element.textContent = new Date().getFullYear(); });
 
@@ -46,7 +46,7 @@ inquiryForm?.addEventListener('submit', async (event) => {
   submit.innerHTML = 'Sending inquiry <span>…</span>';
   status.textContent = '';
   try {
-    const response = await fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    const response = await fetch(`${apiBase}/api/inquiries`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'Unable to send inquiry.');
     inquiryForm.reset();
