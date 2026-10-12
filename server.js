@@ -5,7 +5,8 @@ import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const publicRoot = join(root, 'public');
+// The frontend files live beside this server in the repository root.
+const publicRoot = root;
 try {
   const localEnv = readFileSync(join(root, '.env'), 'utf8');
   localEnv.split(/\r?\n/).forEach((line) => {

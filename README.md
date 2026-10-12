@@ -21,11 +21,11 @@ The site will render without any map key. Inquiry delivery requires the email en
    - `RESEND_API_KEY=...`
    - `RESEND_FROM_EMAIL=...`
 3. Wait for Render to deploy and copy the service URL, such as `https://starlite-inquiries.onrender.com`.
-4. In `public/config.js`, set:
+4. In `config.js`, set:
    ```js
    window.STARLITE_CONFIG = { apiBase: 'https://starlite-inquiries.onrender.com' };
    ```
-5. Upload the contents of `public/` to the GitHub Pages repository. Include `config.js`, all HTML pages, `styles.css`, `app.js`, and `assets/starlite-map.png`.
+5. Push the repository root to the GitHub Pages repository. It already contains `config.js`, all HTML pages, `styles.css`, `app.js`, and `assets/starlite-map.png`.
 
 The browser sends inquiries to the Render URL, while Resend credentials remain only on Render. Render automatically redeploys the backend when the linked Git branch changes. GitHub Pages continues to host the public pages separately.
 
