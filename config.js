@@ -1,2 +1,2 @@
-// Replace apiBase with the public URL of your Render backend for GitHub Pages.
+// Public backend used by the GitHub Pages frontend.
 window.STARLITE_CONFIG = { apiBase: 'https://starlite-back.onrender.com' };

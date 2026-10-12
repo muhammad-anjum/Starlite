@@ -5,6 +5,12 @@ const splash = document.querySelector('.transition-splash');
 const colors = { coral: '#f36d75', blue: '#a9dce5', yellow: '#ffd353', green: '#a9d3b3' };
 const apiBase = window.STARLITE_CONFIG?.apiBase || '';
 
+const favicon = document.createElement('link');
+favicon.rel = 'icon';
+favicon.type = 'image/svg+xml';
+favicon.href = 'assets/favicon.svg';
+document.head.appendChild(favicon);
+
 document.querySelectorAll('.year').forEach((element) => { element.textContent = new Date().getFullYear(); });
 
 document.querySelectorAll('.site-nav a').forEach((link) => {
