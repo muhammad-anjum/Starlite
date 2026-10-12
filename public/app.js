@@ -60,20 +60,3 @@ inquiryForm?.addEventListener('submit', async (event) => {
   }
 });
 
-function loadMaps() {
-  const mapElement = document.querySelector('#dublin-map');
-  const apiKey = window.STARLITE_CONFIG?.mapsKey;
-  if (!mapElement || !apiKey) return;
-  const script = document.createElement('script');
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&callback=initDublinMap`;
-  script.async = true;
-  script.defer = true;
-  window.initDublinMap = () => {
-    const center = { lat: 37.7175, lng: -121.8453 };
-    const map = new google.maps.Map(mapElement, { center, zoom: 14, mapTypeControl: false, streetViewControl: false, fullscreenControl: false, styles: [{ featureType: 'poi', stylers: [{ visibility: 'off' }] }, { featureType: 'transit', stylers: [{ visibility: 'off' }] }, { featureType: 'water', stylers: [{ color: '#c6e7eb' }] }, { featureType: 'landscape', stylers: [{ color: '#f7f0e5' }] }] });
-    new google.maps.Circle({ map, center, radius: 76.2, strokeColor: '#f36d75', strokeOpacity: .95, strokeWeight: 2, fillColor: '#f36d75', fillOpacity: .18 });
-    new google.maps.Polygon({ map, paths: [{ lat: 37.734, lng: -121.885 }, { lat: 37.742, lng: -121.835 }, { lat: 37.719, lng: -121.808 }, { lat: 37.684, lng: -121.818 }, { lat: 37.674, lng: -121.864 }, { lat: 37.696, lng: -121.895 }], strokeColor: '#a986ce', strokeOpacity: .9, strokeWeight: 2, fillColor: '#a986ce', fillOpacity: .06, clickable: false });
-  };
-  document.head.appendChild(script);
-}
-loadMaps();

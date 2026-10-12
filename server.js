@@ -19,7 +19,6 @@ const port = Number(process.env.PORT || 3000);
 const inquiryTo = process.env.INQUIRY_TO_EMAIL || '';
 const resendKey = process.env.RESEND_API_KEY || '';
 const resendFrom = process.env.RESEND_FROM_EMAIL || 'Website Inquiry <onboarding@resend.dev>';
-const mapsKey = process.env.GOOGLE_MAPS_API_KEY || '';
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -107,12 +106,6 @@ async function serveStatic(request, response) {
 
 const server = createServer(async (request, response) => {
   const url = new URL(request.url, 'http://localhost');
-
-  if (request.method === 'GET' && url.pathname === '/config.js') {
-    response.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-store' });
-    response.end(`window.STARLITE_CONFIG = ${JSON.stringify({ mapsKey })};`);
-    return;
-  }
 
   if (request.method === 'POST' && url.pathname === '/api/inquiries') {
     try {
